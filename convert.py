@@ -63,5 +63,6 @@ for path in glob.glob("/Users/okada-toshiki/Library/Preferences/StepMania 5/Uplo
         
     i += 1
 
+# 4スレッドで並列処理
 p = Pool(4)
 p.map(postResult,range(i))
