@@ -5,6 +5,12 @@ import glob
 import subprocess
 import os
 import time
+from multiprocessing import Pool
+from multiprocessing import Process
+
+def postResult(n):
+    cmd = 'curl -XPOST "http://localhost:9200/stepmania/result" -H "Content-Type: application/json" --data-binary @/Users/okada-toshiki/Desktop/result/result' + str(n) + '.json > /dev/null 2>&1'
+    subprocess.call( cmd, shell=True )
 
 i=0
 
@@ -57,7 +63,5 @@ for path in glob.glob("/Users/okada-toshiki/Library/Preferences/StepMania 5/Uplo
         
     i += 1
 
-# elasticsearch への登録
-for j in range(i):
-    cmd = 'curl -XPOST "http://localhost:9200/stepmania/result" -H "Content-Type: application/json" --data-binary @/Users/okada-toshiki/Desktop/result/result' + str(j) + '.json'
-    subprocess.call( cmd, shell=True )
+p = Pool(4)
+p.map(postResult,range(i))
