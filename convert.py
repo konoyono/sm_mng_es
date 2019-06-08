@@ -5,6 +5,7 @@ import glob
 import subprocess
 import os
 import time
+import re
 from multiprocessing import Pool
 from multiprocessing import Process
 
@@ -52,6 +53,9 @@ for path in glob.glob("/Users/okada-toshiki/Library/Preferences/StepMania 5/Uplo
             smline_num = 0
 
             for smline in smlines:
+                if '#TITLE:' in smline:
+                    title = re.search(r"(?<=\:).+?(?=\;)", smline)
+                    root[1][0][0].set("Title", title.group())
                 if 'dance-single:' in smline:
                     if smlines[smline_num+2].rstrip(':\n').lstrip(' ') == root[1][0][1].attrib['Difficulty']:
                         root[1][0][1].set("Level", smlines[smline_num+3].rstrip(':\n').lstrip(' '))
