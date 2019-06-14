@@ -26,7 +26,7 @@ def dig_dict(target_dict, target_branch, sep):
 
 
 # 変換したいJSONファイルを読み込む
-for path in glob.glob("/Users/okada-toshiki/Desktop/result/result1000.json"):
+for path in glob.glob("/Users/okada-toshiki/Desktop/result/*.json"):
     with open(path, 'r') as f:
         res = json.load(f)
         flat_dict = {}
@@ -43,8 +43,6 @@ for path in glob.glob("/Users/okada-toshiki/Desktop/result/result1000.json"):
             else:
                 values += ',' + v
 
-print(header, file=codecs.open(
-    '/Users/okada-toshiki/Desktop/csv_test.csv', 'a', 'utf-8'))
-
-print(values, file=codecs.open(
-    '/Users/okada-toshiki/Desktop/csv_test.csv', 'a', 'utf-8'))
+        if (len(flat_dict.values()) == 49):
+            print(values, file=codecs.open(
+                '/Users/okada-toshiki/Desktop/csv_test.csv', 'a', 'utf-8'))
